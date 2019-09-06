@@ -15,6 +15,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
         primaryStage.setTitle("Ljekarska ordinacija");
         primaryStage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
