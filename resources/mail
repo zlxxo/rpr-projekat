@@ -1,0 +1,31 @@
+u nastavku se nalaze odgovori na pitanja koja ste postavili u prethodnom mailu u Q&A formi. Nadam se da su vaše dileme razriješene.
+
+Q: O čemu želite voditi evidenciju i šta su bitne karakteristike toga?
+      Ovdje opišite sve ono što aplikacija treba da sačuva u svojoj bazi podataka, ono što aplikacija "pamti". Pretpostavljamo da su
+       neke od njih: termini, uposlenici, pacijenti, lijekovi, i dr.
+      Dalje, navedite koje su informacije Vama bitne. Npr: za pacijenta je bitno znati: ime, prezime, datum rođenja, JMBG, broj kartona.
+A: Treba voditi evidenciju o pacijentima, njihovim kartonima, pregledima, uposlenicima i terminima pregleda.
+Postoje dva nivoa korisnika, doktor i direktor.
+Direktor unosi doktore te vrši potrebne izmjene o njihovim informacijama te pregledava izvještaje dok doktor unosi podatke o pacijentu,
+ pregledu, dijagnozu itd.
+Za doktore potrebno je čuvati podatke o imenu, prezimenu, specijalizaciji tj. odjelu, broju licence, te pacijentima koje taj doktor ima
+ u slučaju doktora opće prakse.
+Za pacijente je potrebno čuvati ime, prezime, jmbg, broj kartona, broj osiguranja, prethodne dijagnoze, informacije o alergijama,
+ nasljednim bolestima itd.
+Q: Koja je svrha korištenja aplikacije?
+      Ovdje opišite za šta želite koristiti aplikaciju, kako želite iskorisiti podatke u aplikaciji. Svaki događaj u Vašoj ordinaciji
+       aplikacija će pamtiti za vas, ali na vama je da
+      to zapišete. Objasnite šta sve želite zapisati i kako. Na osnovu svih upisanih podataka, aplikacija može napraviti i izvještaje.
+       Koje izvještaje želite i u kojem formatu?
+      Primjeri: pacijent napravio termin, dobili ste novi lijek, dobili ste novu mašinu, spisak pacijenata, spisak osoblja.
+A: Aplikacija treba da vodi računa o terminima pregleda, te da se rezultati svakog pregleda unose u karton klijenta. Dijagnoza bolesti,
+ propisani lijekovi itd. Svrha je da se digitalizira i olakša vođenje
+informacija o poslovanju naše ordinacije. Do sada se sve to radilo ručno. Potrebno je omogućiti izvještaje o broju pregleda na mjesečnoj bazi,
+ izvještaj o broju pregleda za svaki odjel ili za specifičnog doktora, te pacijente koji su obavili više od 5 pregleda u prethodnom mjesecu.
+Q: Da li, koje i kako želite ažurirati podatke? Šta se dešava u nekim specifičnim situacijama?
+      Pošto se vremenom sve mijenja, neki lijek će možda biti izbačen iz upotrebe, stanje upotrebljenog materijala, mašine koje posjedujete mogu
+       prestati raditi, šta želite da se u tim
+      situacijama desi?
+A: Aplikacija ne vodi računa o lijekovima koji su trenutno u upotrebni, ordinacija nema veze sa apotekom. Također direktor može ažurirati
+ podatke o doktorima u bilo kom trenutku. Doktori mogu vršiti ažuriranje podataka o pacijentu u bilo kom trenutku, ali mogu ažurirati prethodno
+ izvršeni pregled samo u vremenskom periodu od 15 minuta nakon potvrde da je pregled završen, kako bi se izbjegle malverzacije.
