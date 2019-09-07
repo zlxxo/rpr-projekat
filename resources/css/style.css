@@ -1,0 +1,6 @@
+.textFieldCorrect {
+    -fx-control-inner-background: greenyellow;
+}
+.textFieldIncorrect {
+    -fx-control-inner-background: lightpink;
+}
