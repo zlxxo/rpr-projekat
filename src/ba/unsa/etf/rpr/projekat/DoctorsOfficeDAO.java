@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class DoctorsOfficeDAO {
     private static DoctorsOfficeDAO instance = null;
     private Connection conn;
-    private PreparedStatement getBossByUsername;
+    private PreparedStatement getBossByUsername, getDoctorByUsername;
 
     private DoctorsOfficeDAO() {
         try {
@@ -32,6 +32,7 @@ public class DoctorsOfficeDAO {
 
         try {
             getBossByUsername = conn.prepareStatement("select first_name, last_name, username, password from boss where username=?");
+            getDoctorByUsername = conn.prepareStatement("select first_name, last_name, username, password, licence_number from doctor where username=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,10 +82,25 @@ public class DoctorsOfficeDAO {
 
     public Boss getBoss(String username) {
         try {
+            getBossByUsername.clearParameters();
             getBossByUsername.setString(1, username);
             ResultSet rs = getBossByUsername.executeQuery();
             if(rs.next()) {
                 return new Boss(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Doctor getDoctor(String username) {
+        try {
+            getDoctorByUsername.clearParameters();
+            getDoctorByUsername.setString(1, username);
+            ResultSet rs = getDoctorByUsername.executeQuery();
+            if(rs.next()) {
+                return new Doctor(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
             }
         } catch (SQLException e) {
             e.printStackTrace();
