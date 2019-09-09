@@ -7,13 +7,23 @@ CREATE TABLE IF NOT EXISTS `boss` (
 	PRIMARY KEY(`username`)
 );
 INSERT INTO `boss` VALUES ('mramic2','Muhamed','Ramić','NekaSifra4');
+CREATE TABLE `department` (
+	`id`	INTEGER,
+	`name`	TEXT,
+	PRIMARY KEY(`id`)
+);
+INSERT INTO `department` VALUES (1, 'opća medicina');
+INSERT INTO `department` VALUES (2, 'oftamologija');
 CREATE TABLE IF NOT EXISTS `doctor` (
 	`username`	TEXT,
 	`first_name` TEXT,
 	`last_name`	TEXT,
 	`password`	TEXT,
 	`licence_number` TEXT,
-	PRIMARY KEY(`username`)
+	`department`	INTEGER,
+	PRIMARY KEY(`username`),
+	FOREIGN KEY(`department`) REFERENCES `department`(`id`)
 );
-INSERT INTO `doctor` VALUES ('silic1','Selma','Ilić','Mojasifra6','123456');
+INSERT INTO `doctor` VALUES ('silic1','Selma','Ilić','Mojasifra6','123456', 1);
+INSERT INTO `doctor` VALUES ('hsadic2','Hana','Sadić','Sifrica6','123457', 2);
 COMMIT;
