@@ -1,13 +1,21 @@
 package ba.unsa.etf.rpr.projekat;
 
-public class Employee extends Person {
+public class Employee {
+    private String firstName;
+    private String lastName;
     private String username;
     private String password;
 
     public Employee(String firstName, String lastName, String username, String password) {
-        super(firstName, lastName);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.username = username;
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 
     public String getUsername() {
@@ -24,5 +32,21 @@ public class Employee extends Person {
 
     public boolean correctPassword(String password) {
         return password.equals(this.password);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

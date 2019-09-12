@@ -9,6 +9,11 @@ public class Doctor extends Employee{
         this.licenceNumber = licenceNumber;
     }
 
+    @Override
+    public String toString() {
+        return "dr. " + super.toString();
+    }
+
     public String getLicenceNumber() {
         return licenceNumber;
     }

@@ -9,6 +9,10 @@ public class SpecializedDoctor extends Doctor {
         this.department = department;
     }
 
+    public String toString() {
+        return super.toString();
+    }
+
     public String getDepartment() {
         return department;
     }

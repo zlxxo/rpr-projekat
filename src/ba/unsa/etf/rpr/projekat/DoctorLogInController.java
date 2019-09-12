@@ -35,8 +35,8 @@ public class DoctorLogInController {
                 Stage stage = new Stage();
                 Parent root = null;
                 try {
-                    root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
-                    stage.setTitle("Pomoć");
+                    root = FXMLLoader.load(getClass().getResource("/fxml/doctor.fxml"));
+                    stage.setTitle(doctor.toString());
                     stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
                     stage.setResizable(false);
                     stage.show();

@@ -36,8 +36,8 @@ public class BossLogInController {
                 Stage stage = new Stage();
                 Parent root = null;
                 try {
-                    root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
-                    stage.setTitle("Pomoć");
+                    root = FXMLLoader.load(getClass().getResource("/fxml/boss.fxml"));
+                    stage.setTitle(boss.toString());
                     stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
                     stage.setResizable(false);
                     stage.show();

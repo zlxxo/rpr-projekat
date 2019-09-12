@@ -11,6 +11,11 @@ public class GeneralPractitioner extends Doctor {
         this.patients = patients;
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     public ArrayList<Patient> getPatients() {
         return patients;
     }
