@@ -129,4 +129,44 @@ public class DoctorsOfficeDAO {
         }
         return null;
     }
+
+    public ArrayList<Doctor> getDoctors() {
+        ArrayList<Doctor> doctors = new ArrayList<>();
+
+        try {
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery("select username from doctor order by last_name");
+            while(rs.next()) {
+                Doctor d = getDoctor(rs.getString(1));
+                if(d != null) doctors.add(d);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return doctors;
+    }
+
+    public MedicalHistory getMedicalHistory(int number) {
+        MedicalHistory result = new MedicalHistory();
+        result.setNumber(number);
+        return result;
+    }
+
+    public ArrayList<Patient> getPatients() {
+        ArrayList<Patient> patients = new ArrayList<>();
+
+        try {
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery("select * from patient order by last_name");
+            while (rs.next()) {
+                MedicalHistory m = getMedicalHistory(rs.getInt(4));
+                patients.add(new Patient(rs.getString(2), rs.getString(3), rs.getString(1), m));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return patients;
+    }
 }

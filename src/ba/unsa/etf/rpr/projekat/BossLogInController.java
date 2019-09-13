@@ -39,7 +39,7 @@ public class BossLogInController {
                     root = FXMLLoader.load(getClass().getResource("/fxml/boss.fxml"));
                     stage.setTitle(boss.toString());
                     stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-                    stage.setResizable(false);
+                    stage.setResizable(true);
                     stage.show();
                 } catch (Exception e) {
                     System.out.println(e);

@@ -26,4 +26,17 @@ CREATE TABLE IF NOT EXISTS `doctor` (
 );
 INSERT INTO `doctor` VALUES ('silic1','Selma','Ilić','Mojasifra6','123456', 1);
 INSERT INTO `doctor` VALUES ('hsadic2','Hana','Sadić','Sifrica6','123457', 2);
+CREATE TABLE `medical_hstory` (
+    `number`	INTEGER,
+	PRIMARY KEY(`number`)
+);
+INSERT INTO `medical_hstory` VALUES(1);
+CREATE TABLE `patient` (
+	`pin`	TEXT,
+	`first_name`	TEXT,
+	`last_name`	TEXT,
+	`medical_history`	INTEGER UNIQUE,
+	PRIMARY KEY(`pin`)
+);
+INSERT INTO `patient` VALUES('1605998167723', 'Sara', 'Hasić', 1);
 COMMIT;

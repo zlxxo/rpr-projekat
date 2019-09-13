@@ -9,6 +9,14 @@ public class MedicalHistory {
     private ArrayList<String>  diagnosis;
     private ArrayList<String> diseases;
 
+    public MedicalHistory() {
+        number = 0;
+        checkUps = new ArrayList<>();
+        allergies = new ArrayList<>();
+        diagnosis = new ArrayList<>();
+        diseases = new ArrayList<>();
+    }
+
     public MedicalHistory(int number, ArrayList<CheckUp> checkUps, ArrayList<String> allergies, ArrayList<String> diagnosis, ArrayList<String> diseases) {
         this.number = number;
         this.checkUps = checkUps;

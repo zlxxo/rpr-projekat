@@ -38,7 +38,7 @@ public class DoctorLogInController {
                     root = FXMLLoader.load(getClass().getResource("/fxml/doctor.fxml"));
                     stage.setTitle(doctor.toString());
                     stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-                    stage.setResizable(false);
+                    stage.setResizable(true);
                     stage.show();
                 } catch (Exception e) {
                     System.out.println(e);

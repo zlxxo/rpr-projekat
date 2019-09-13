@@ -7,9 +7,11 @@ public class Patient {
     private String personalIdentificationNumber;
     private MedicalHistory medicalHistory;
 
-    public Patient(String firstName, String lastName, String personalIdentificationNumber) {
+    public Patient(String firstName, String lastName, String personalIdentificationNumber, MedicalHistory medicalHistory) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.personalIdentificationNumber = personalIdentificationNumber;
+        this.medicalHistory = medicalHistory;
     }
 
     public void addCheckUp(CheckUp checkUp) {
@@ -59,4 +61,5 @@ public class Patient {
     public void setMedicalHistory(MedicalHistory medicalHistory) {
         this.medicalHistory = medicalHistory;
     }
+
 }
