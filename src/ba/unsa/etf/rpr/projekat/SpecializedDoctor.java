@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.projekat;
 
+import java.util.ArrayList;
+
 public class SpecializedDoctor extends Doctor {
 
     private String department;

@@ -19,18 +19,13 @@ CREATE TABLE IF NOT EXISTS `doctor` (
 	`first_name` TEXT,
 	`last_name`	TEXT,
 	`password`	TEXT,
-	`licence_number` TEXT,
+	`licence_number` TEXT UNIQUE,
 	`department`	INTEGER,
 	PRIMARY KEY(`username`),
 	FOREIGN KEY(`department`) REFERENCES `department`(`id`)
 );
 INSERT INTO `doctor` VALUES ('silic1','Selma','Ilić','Mojasifra6','123456', 1);
 INSERT INTO `doctor` VALUES ('hsadic2','Hana','Sadić','Sifrica6','123457', 2);
-CREATE TABLE `medical_hstory` (
-    `number`	INTEGER,
-	PRIMARY KEY(`number`)
-);
-INSERT INTO `medical_hstory` VALUES(1);
 CREATE TABLE `patient` (
 	`pin`	TEXT,
 	`first_name`	TEXT,

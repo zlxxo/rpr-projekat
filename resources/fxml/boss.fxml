@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.BossController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.BossController">
     <top>
         <VBox prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -103,7 +103,7 @@
       </GridPane>
    </center>
    <right>
-      <GridPane hgap="5.0" prefHeight="395.0" prefWidth="140.0" BorderPane.alignment="CENTER">
+      <GridPane hgap="5.0" prefHeight="388.0" prefWidth="180.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -120,10 +120,10 @@
             <Insets bottom="20.0" right="20.0" top="20.0" />
          </padding>
          <children>
-            <Button fx:id="addDoctorBtn" mnemonicParsing="false" onAction="#addDoctor" prefHeight="31.0" prefWidth="135.0" text="Dodaj doktora" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="Button" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="Button" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="Button" GridPane.rowIndex="3" />
+            <Button fx:id="addDoctorBtn" mnemonicParsing="false" onAction="#addDoctor" prefHeight="31.0" prefWidth="163.0" text="Dodaj doktora" />
+            <Button fx:id="updateDoctorBtn" mnemonicParsing="false" onAction="#updateDoctor" prefHeight="31.0" prefWidth="161.0" text="Ažuriraj doktora" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="160.0" text="Button" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="160.0" text="Button" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </right>

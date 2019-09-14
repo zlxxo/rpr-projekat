@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class DoctorsOfficeDAO {
     private static DoctorsOfficeDAO instance = null;
     private Connection conn;
-    private PreparedStatement getBossByUsername, getDoctorByUsername;
+    private PreparedStatement getBossByUsername, getDoctorByUsername, addDoctor, addDepartment, getNewDepID, getDepID;
 
     private DoctorsOfficeDAO() {
         try {
@@ -34,6 +34,10 @@ public class DoctorsOfficeDAO {
         try {
             getBossByUsername = conn.prepareStatement("select first_name, last_name, username, password from boss where username=?");
             getDoctorByUsername = conn.prepareStatement("select first_name, last_name, username, password, licence_number, department from doctor where username=?");
+            addDepartment = conn.prepareStatement("insert into department values (?,?)");
+            addDoctor = conn.prepareStatement("insert into doctor values (?,?,?,?,?,?);");
+            getNewDepID = conn.prepareStatement("select max(id)+1 from department");
+            getDepID = conn.prepareStatement("select id from department where name=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -101,13 +105,15 @@ public class DoctorsOfficeDAO {
             PreparedStatement p = conn.prepareStatement("select name from department where id=?");
             p.setInt(1, department);
             ResultSet rs1 = p.executeQuery();
-            String departmentName = rs.getString(1);
-            if(departmentName.equals("opća medicina")) {
-                return new GeneralPractitioner(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), new ArrayList<Patient>());
-            } else {
-                return new SpecializedDoctor(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), departmentName);
+            if(rs1.next()) {
+                String departmentName = rs1.getString(1);
+                if (departmentName.equals("opća medicina")) {
+                    return new GeneralPractitioner(rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), new ArrayList<Patient>());
+                } else {
+                    return new SpecializedDoctor(rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), departmentName);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -168,5 +174,131 @@ public class DoctorsOfficeDAO {
         }
 
         return patients;
+    }
+
+    public ArrayList<String> getDepartments() {
+        ArrayList<String> departments = new ArrayList<>();
+
+        try {
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery("select name from department order by name");
+
+            while(rs.next()) {
+                departments.add(rs.getString(1));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return departments;
+    }
+
+    public ArrayList<String> getLicences() {
+        ArrayList<String> licences = new ArrayList<>();
+
+        try {
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery("select licence_number from doctor order by licence_number");
+
+            while(rs.next()) {
+                licences.add(rs.getString(1));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return licences;
+    }
+
+    private String createUsername(String firstName, String lastName) {
+        String result = firstName.charAt(0) + lastName;
+        result = result.toLowerCase();
+
+        try {
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery("select username from doctor");
+            ArrayList<String> doctors = new ArrayList<>();
+            while(rs.next()) {
+                doctors.add(rs.getString(1));
+            }
+            int i = 1;
+            while(true) {
+                String p = String.valueOf(result);
+                p += i;
+                if(!doctors.contains(p)) {
+                    result = p;
+                    break;
+                }
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private String createPassword() {
+        String result = "AutomatskaSifra";
+
+        try {
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery("select password from doctor");
+            ArrayList<String> passwords = new ArrayList<>();
+            while(rs.next()) {
+                passwords.add(rs.getString(1));
+            }
+            int i = 1;
+            while(true) {
+                String p = String.valueOf(result);
+                p += i;
+                if(!passwords.contains(p)) {
+                    result = p;
+                    break;
+                }
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public void addDoctor(String firstName, String lastName, String department, String licence) {
+        int id = 0;
+        try {
+            getDepID.setString(1, department);
+            ResultSet rs = getDepID.executeQuery();
+            if(rs.next()){
+                id = Integer.parseInt(rs.getString(1));
+            } else {
+                ResultSet rs1 = getNewDepID.executeQuery();
+                if(rs1.next()) {
+                    id = rs1.getInt(1);
+                }
+
+                PreparedStatement p = conn.prepareStatement("insert into department values (?,?)");
+                p.setInt(1, id);
+                p.setString(2, department);
+                p.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String username = createUsername(firstName, lastName), password = createPassword();
+
+        try {
+            addDoctor.setString(1, username);
+            addDoctor.setString(2, firstName);
+            addDoctor.setString(3, lastName);
+            addDoctor.setString(4, password);
+            addDoctor.setString(5, licence);
+            addDoctor.setInt(6, id);
+            addDoctor.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -10,8 +10,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.ModDoctorController">
-  <columnConstraints>
+<?import java.net.URL?>
+<GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/css/style.css" />
+    </stylesheets>
+    <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="180.0" />
   </columnConstraints>
@@ -33,7 +37,7 @@
       <TextField fx:id="firstNameTF" GridPane.columnIndex="1" />
       <TextField fx:id="lastNameTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextField fx:id="licenceTF" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <ComboBox fx:id="departmentCB" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <ComboBox fx:id="departmentCB" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="2" editable="true"/>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
          <children>
             <Button fx:id="addDoctorBtn" mnemonicParsing="false" onAction="#addDoctor" text="Registruj doktora" />

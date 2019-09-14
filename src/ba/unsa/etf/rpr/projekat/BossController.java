@@ -26,7 +26,7 @@ public class BossController implements Initializable {
     public TableView<Patient> patientsTV;
     public TableColumn colDFirstName;
     public TableColumn colDLastName;
-    public TableColumn colSpetialization;
+    public TableColumn<Doctor, String> colSpetialization;
     public TableColumn colLicenceNumber;
     public TableColumn colPFirstName;
     public  TableColumn colPLastName;
@@ -48,7 +48,7 @@ public class BossController implements Initializable {
 
         colDFirstName.setCellValueFactory(new PropertyValueFactory("firstName"));
         colDLastName.setCellValueFactory(new PropertyValueFactory("lastName"));
-        colSpetialization.setCellValueFactory(new PropertyValueFactory("department"));
+        colSpetialization.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDepartment()));
         colLicenceNumber.setCellValueFactory(new PropertyValueFactory("licenceNumber"));
 
         colPFirstName.setCellValueFactory(new PropertyValueFactory("firstName"));
@@ -61,11 +61,50 @@ public class BossController implements Initializable {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/modDoctor.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modDoctor.fxml"));
+            ModDoctorController controller = new ModDoctorController(null);
+            loader.setController(controller);
+            root = loader.load();
             stage.setTitle("Doktor");
             stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
             stage.setResizable(false);
             stage.show();
+
+
+            stage.setOnHiding( event -> {
+                Doctor doctor = controller.getDoctor();
+                if (doctor != null) {
+                    doctors.setAll(dao.getDoctors());
+                }
+            } );
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateDoctor(ActionEvent actionEvent) {
+        Doctor doctor = doctorsTV.getSelectionModel().getSelectedItem();
+        if (doctor == null) return;
+
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/modDoctor.fxml"));
+            ModDoctorController controller = new ModDoctorController(doctor);
+            loader.setController(controller);
+            root = loader.load();
+            stage.setTitle("Doktor");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+
+            stage.setOnHiding( event -> {
+                Doctor doctor1 = controller.getDoctor();
+                if (doctor1 != null) {
+                    doctors.setAll(dao.getDoctors());
+                }
+            } );
         } catch (Exception e) {
             System.out.println(e);
         }
