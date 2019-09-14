@@ -36,7 +36,6 @@ public class BossController implements Initializable {
     private ObservableList<Patient> patients;
     private ObservableList<Doctor> doctors;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dao = DoctorsOfficeDAO.getInstance();

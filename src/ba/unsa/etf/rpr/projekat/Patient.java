@@ -6,6 +6,7 @@ public class Patient {
     private String lastName;
     private String personalIdentificationNumber;
     private MedicalHistory medicalHistory;
+    private GeneralPractitioner generalPractitioner;
 
     public Patient(String firstName, String lastName, String personalIdentificationNumber, MedicalHistory medicalHistory) {
         this.firstName = firstName;
@@ -62,4 +63,11 @@ public class Patient {
         this.medicalHistory = medicalHistory;
     }
 
+    public GeneralPractitioner getGeneralPractitioner() {
+        return generalPractitioner;
+    }
+
+    public void setGeneralPractitioner(GeneralPractitioner generalPractitioner) {
+        this.generalPractitioner = generalPractitioner;
+    }
 }

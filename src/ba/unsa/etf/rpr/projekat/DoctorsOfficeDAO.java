@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class DoctorsOfficeDAO {
     private static DoctorsOfficeDAO instance = null;
     private Connection conn;
-    private PreparedStatement getBossByUsername, getDoctorByUsername, addDoctor, addDepartment, getNewDepID, getDepID;
+    private PreparedStatement getBossByUsername, getDoctorByUsername, addDoctor, addDepartment, getNewDepID, getDepID, updateDoctor;
 
     private DoctorsOfficeDAO() {
         try {
@@ -38,6 +38,7 @@ public class DoctorsOfficeDAO {
             addDoctor = conn.prepareStatement("insert into doctor values (?,?,?,?,?,?);");
             getNewDepID = conn.prepareStatement("select max(id)+1 from department");
             getDepID = conn.prepareStatement("select id from department where name=?");
+            updateDoctor = conn.prepareStatement("update doctor set first_name=?, last_name=?, department=?, licence_number=? where username=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -108,8 +109,20 @@ public class DoctorsOfficeDAO {
             if(rs1.next()) {
                 String departmentName = rs1.getString(1);
                 if (departmentName.equals("opća medicina")) {
-                    return new GeneralPractitioner(rs.getString(1), rs.getString(2), rs.getString(3),
+                    ArrayList<Patient> patients = new ArrayList<>();
+                    GeneralPractitioner g = new GeneralPractitioner(rs.getString(1), rs.getString(2), rs.getString(3),
                             rs.getString(4), rs.getString(5), new ArrayList<Patient>());
+                    PreparedStatement p1 = conn.prepareStatement("select * from patient where general_practitioner=?");
+                    p1.setString(1, g.getUsername());
+                    ResultSet rs2 = p1.executeQuery();
+                    while(rs2.next()) {
+                        MedicalHistory m = getMedicalHistory(rs2.getInt(4));
+                        Patient patient = new Patient(rs2.getString(2), rs2.getString(3), rs2.getString(1), m);
+                        patient.setGeneralPractitioner(g);
+                        patients.add(patient);
+                    }
+                    g.setPatients(patients);
+                    return g;
                 } else {
                     return new SpecializedDoctor(rs.getString(1), rs.getString(2), rs.getString(3),
                             rs.getString(4), rs.getString(5), departmentName);
@@ -167,7 +180,11 @@ public class DoctorsOfficeDAO {
             ResultSet rs = s.executeQuery("select * from patient order by last_name");
             while (rs.next()) {
                 MedicalHistory m = getMedicalHistory(rs.getInt(4));
-                patients.add(new Patient(rs.getString(2), rs.getString(3), rs.getString(1), m));
+                Patient p = new Patient(rs.getString(2), rs.getString(3), rs.getString(1), m);
+                Doctor d = getDoctor(rs.getString(5));
+                p.setGeneralPractitioner((GeneralPractitioner) d);
+                patients.add(p);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -297,6 +314,40 @@ public class DoctorsOfficeDAO {
             addDoctor.setString(5, licence);
             addDoctor.setInt(6, id);
             addDoctor.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateDoctor(String username, String name, String lastName, String department, String licence) {
+        int id = 0;
+        try {
+            getDepID.setString(1, department);
+            ResultSet rs = getDepID.executeQuery();
+            if(rs.next()){
+                id = Integer.parseInt(rs.getString(1));
+            } else {
+                ResultSet rs1 = getNewDepID.executeQuery();
+                if(rs1.next()) {
+                    id = rs1.getInt(1);
+                }
+
+                PreparedStatement p = conn.prepareStatement("insert into department values (?,?)");
+                p.setInt(1, id);
+                p.setString(2, department);
+                p.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            updateDoctor.setString(1, name);
+            updateDoctor.setString(2, lastName);
+            updateDoctor.setInt(3, id);
+            updateDoctor.setString(4, licence);
+            updateDoctor.setString(5, username);
+            updateDoctor.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

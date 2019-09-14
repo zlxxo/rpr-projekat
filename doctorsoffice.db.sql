@@ -31,7 +31,9 @@ CREATE TABLE `patient` (
 	`first_name`	TEXT,
 	`last_name`	TEXT,
 	`medical_history`	INTEGER UNIQUE,
-	PRIMARY KEY(`pin`)
+	`general_practitioner`	TEXT,
+    PRIMARY KEY(`pin`),
+    FOREIGN KEY(`general_practitioner`) REFERENCES `doctor`(`username`)
 );
-INSERT INTO `patient` VALUES('1605998167723', 'Sara', 'Hasić', 1);
+INSERT INTO `patient` VALUES('1605998167723', 'Sara', 'Hasić', 1, "silic1");
 COMMIT;

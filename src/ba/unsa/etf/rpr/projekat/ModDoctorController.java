@@ -21,12 +21,14 @@ public class ModDoctorController implements Initializable {
     public TextField licenceTF;
     public Button addDoctorBtn;
     private Doctor doctor;
+    private boolean add = false;
     private DoctorsOfficeDAO dao;
     private ObservableList<String> departmetns;
 
 
     public ModDoctorController(Doctor doctor) {
         this.doctor = doctor;
+        if(doctor == null) add = true;
         dao = DoctorsOfficeDAO.getInstance();
     }
 
@@ -34,7 +36,14 @@ public class ModDoctorController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         departmetns = FXCollections.observableArrayList(dao.getDepartments());
         departmentCB.setItems(departmetns);
-        departmentCB.setValue("");
+        if(add) {
+            departmentCB.setValue("");
+        } else {
+            firstNameTF.setText(doctor.getFirstName());
+            lastNameTF.setText(doctor.getLastName());
+            licenceTF.setText(doctor.getLicenceNumber());
+            departmentCB.setValue(doctor.getDepartment());
+        }
     }
 
     private boolean correctName(String name) {
@@ -45,18 +54,20 @@ public class ModDoctorController implements Initializable {
             char a = name.charAt(i);
             if(!(Character.isLetter(a) || Character.isSpaceChar(a))) {
                 return false;
-            } else if(Character.isSpaceChar(a)) previousIsSpace = true;
-            else if(Character.isLetter(a)) previousIsSpace = false;
-
+            }
             if(previousIsSpace) {
                 if(!Character.isUpperCase(a)) return false;
             }
+
+            if(Character.isSpaceChar(a)) previousIsSpace = true;
+            else if(Character.isLetter(a)) previousIsSpace = false;
         }
 
         return true;
     }
 
     private boolean correctLicence(String licence) {
+        if(!add && licence.equals(doctor.getLicenceNumber())) return true;
         ArrayList<String> licences = dao.getLicences();
 
         if(licences.contains(licence)) return false;
@@ -96,7 +107,7 @@ public class ModDoctorController implements Initializable {
             OK = false;
         }
 
-        if(!correctName(department)) {
+        if(department.equals("")) {
             OK = false;
         }
 
@@ -110,14 +121,15 @@ public class ModDoctorController implements Initializable {
         }
 
         if(OK) {
-            if(doctor == null) {
+            if(add) {
                 dao.addDoctor(name, lastName, department, licence);
                 doctor = new SpecializedDoctor(name, lastName, "", "", licence, department);
-                Stage stage = (Stage) firstNameTF.getScene().getWindow();
-                stage.close();
             } else {
-
+                dao.updateDoctor(doctor.getUsername(), name, lastName, department, licence);
             }
+
+            Stage stage = (Stage) firstNameTF.getScene().getWindow();
+            stage.close();
         }
     }
 
