@@ -108,4 +108,32 @@ public class BossController implements Initializable {
             System.out.println(e);
         }
     }
+
+    public void addPatient(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addPatient.fxml"));
+            AddPatientController controller = new AddPatientController(null);
+            loader.setController(controller);
+            root = loader.load();
+            stage.setTitle("Pacijent");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+
+            stage.setOnHiding( event -> {
+                Patient patient = controller.getPatient();
+                if (patient != null) {
+                    patients.setAll(dao.getPatients());
+                }
+            } );
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void udpatePatient(ActionEvent actionEvent) {
+    }
 }

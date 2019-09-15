@@ -122,8 +122,8 @@
          <children>
             <Button fx:id="addDoctorBtn" mnemonicParsing="false" onAction="#addDoctor" prefHeight="31.0" prefWidth="163.0" text="Dodaj doktora" />
             <Button fx:id="updateDoctorBtn" mnemonicParsing="false" onAction="#updateDoctor" prefHeight="31.0" prefWidth="161.0" text="Ažuriraj doktora" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="160.0" text="Button" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="160.0" text="Button" GridPane.rowIndex="3" />
+            <Button fx:id="addPatientBtn" mnemonicParsing="false" onAction="#addPatient" prefHeight="31.0" prefWidth="160.0" text="Dodaj pacijenta" GridPane.rowIndex="2" />
+            <Button fx:id="updatePatientBtn" mnemonicParsing="false" onAction="#udpatePatient" prefHeight="31.0" prefWidth="160.0" text="Ažuriraj pacijenta" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </right>

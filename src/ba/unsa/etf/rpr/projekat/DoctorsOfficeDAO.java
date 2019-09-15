@@ -352,4 +352,25 @@ public class DoctorsOfficeDAO {
             e.printStackTrace();
         }
     }
+
+    public void addPatient(String pin, String name, String lastName, String username) {
+        try {
+            PreparedStatement p = conn.prepareStatement("insert into patient values(?,?,?,?,?)");
+
+            PreparedStatement p2 = conn.prepareStatement("select max(medical_history)+1 from patient");
+            ResultSet rs = p2.executeQuery();
+
+            if(rs.next()) {
+                p.setString(1, pin);
+                p.setString(2, name);
+                p.setString(3, lastName);
+                p.setInt(4, rs.getInt(1));
+                p.setString(5, username);
+                p.execute();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
