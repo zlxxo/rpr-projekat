@@ -35,11 +35,25 @@ public class DoctorLogInController {
                 Stage stage = new Stage();
                 Parent root = null;
                 try {
-                    root = FXMLLoader.load(getClass().getResource("/fxml/doctor.fxml"));
-                    stage.setTitle(doctor.toString());
-                    stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
-                    stage.setResizable(true);
-                    stage.show();
+                    if(doctor instanceof SpecializedDoctor) {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/doctor.fxml"));
+                        DoctorController controller = new DoctorController((SpecializedDoctor) doctor);
+                        loader.setController(controller);
+                        root = loader.load();
+                        stage.setTitle(doctor.toString());
+                        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+                        stage.setResizable(true);
+                        stage.show();
+                    } else if (doctor instanceof GeneralPractitioner){
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/generalPractitioner.fxml"));
+                        GeneralPractitionerController controller = new GeneralPractitionerController((GeneralPractitioner) doctor);
+                        loader.setController(controller);
+                        root = loader.load();
+                        stage.setTitle(doctor.toString());
+                        stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+                        stage.setResizable(true);
+                        stage.show();
+                    }
                 } catch (Exception e) {
                     System.out.println(e);
                 }

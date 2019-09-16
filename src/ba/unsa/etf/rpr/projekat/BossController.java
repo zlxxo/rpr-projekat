@@ -133,7 +133,4 @@ public class BossController implements Initializable {
             System.out.println(e);
         }
     }
-
-    public void udpatePatient(ActionEvent actionEvent) {
-    }
 }

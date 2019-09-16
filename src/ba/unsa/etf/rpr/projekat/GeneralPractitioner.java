@@ -14,7 +14,7 @@ public class GeneralPractitioner extends Doctor {
 
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString() + " (" + department + ")";
     }
 
     public ArrayList<Patient> getPatients() {

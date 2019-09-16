@@ -12,7 +12,7 @@ public class SpecializedDoctor extends Doctor {
     }
 
     public String toString() {
-        return super.toString();
+        return super.toString() + " (" + department + ")";
     }
 
     public String getDepartment() {
