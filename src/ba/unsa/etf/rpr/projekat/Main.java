@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
@@ -19,6 +21,12 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
         primaryStage.setResizable(false);
         primaryStage.show();
+
+        /*LocalDate d = LocalDate.now();
+        System.out.println(d);
+        LocalTime t = LocalTime.now();
+        System.out.println(t);
+        */
     }
 
 

@@ -114,7 +114,7 @@ public class BossController implements Initializable {
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/addPatient.fxml"));
-            AddPatientController controller = new AddPatientController(null);
+            AddPatientController controller = new AddPatientController(null, null);
             loader.setController(controller);
             root = loader.load();
             stage.setTitle("Pacijent");

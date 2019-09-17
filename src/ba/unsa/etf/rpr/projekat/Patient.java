@@ -23,12 +23,8 @@ public class Patient {
         medicalHistory.addAllergy(allergy);
     }
 
-    public void addDiagnosis(String diagnosis) {
-        medicalHistory.addDiagnosis(diagnosis);
-    }
-
-    public void addDiseas(String disease) {
-        medicalHistory.addDiseas(disease);
+    public void addDisease(String disease) {
+        medicalHistory.addDisease(disease);
     }
 
     public String getFirstName() {
@@ -69,5 +65,10 @@ public class Patient {
 
     public void setGeneralPractitioner(GeneralPractitioner generalPractitioner) {
         this.generalPractitioner = generalPractitioner;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " (" + personalIdentificationNumber + ")";
     }
 }

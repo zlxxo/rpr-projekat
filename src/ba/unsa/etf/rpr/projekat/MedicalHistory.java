@@ -6,14 +6,12 @@ public class MedicalHistory {
     private int number;
     private ArrayList<CheckUp> checkUps;
     private ArrayList<String> allergies;
-    private ArrayList<String>  diagnosis;
     private ArrayList<String> diseases;
 
-    public MedicalHistory() {
-        number = 0;
+    public MedicalHistory(int number) {
+        this.number = number;
         checkUps = new ArrayList<>();
         allergies = new ArrayList<>();
-        diagnosis = new ArrayList<>();
         diseases = new ArrayList<>();
     }
 
@@ -21,7 +19,6 @@ public class MedicalHistory {
         this.number = number;
         this.checkUps = checkUps;
         this.allergies = allergies;
-        this.diagnosis = diagnosis;
         this.diseases = diseases;
     }
 
@@ -33,11 +30,7 @@ public class MedicalHistory {
         allergies.add(allergy);
     }
 
-    public void addDiagnosis(String diagnosis) {
-        this.diagnosis.add(diagnosis);
-    }
-
-    public void addDiseas(String disease) {
+    public void addDisease(String disease) {
         diseases.add(disease);
     }
 
@@ -63,13 +56,5 @@ public class MedicalHistory {
 
     public void setAllergies(ArrayList<String> allergies) {
         this.allergies = allergies;
-    }
-
-    public ArrayList<String> getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(ArrayList<String> diagnosis) {
-        this.diagnosis = diagnosis;
     }
 }

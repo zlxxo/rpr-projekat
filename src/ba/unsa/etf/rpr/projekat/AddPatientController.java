@@ -24,9 +24,11 @@ public class AddPatientController implements Initializable {
     private ObservableList<Doctor> doctors;
     private ArrayList<Doctor> d = new ArrayList<>();
     private Patient patient;
+    private GeneralPractitioner doctor = null;
 
-    public AddPatientController(Patient patient) {
+    public AddPatientController(Patient patient, GeneralPractitioner doctor) {
         this.patient = patient;
+        this.doctor = doctor;
     }
 
     @Override
@@ -42,7 +44,8 @@ public class AddPatientController implements Initializable {
 
         doctors = FXCollections.observableArrayList(d);
         doctorCB.setItems(doctors);
-        doctorCB.setValue(d.get(0));
+        if(doctor != null) doctorCB.setValue(doctor);
+        else doctorCB.setValue(d.get(0));
     }
 
     public void addPatient(ActionEvent actionEvent) {
@@ -84,9 +87,8 @@ public class AddPatientController implements Initializable {
         }
 
         if(OK) {
-            System.out.println("Sve ok");
             dao.addPatient(pin, name, lastName, d.getUsername());
-            patient = new Patient(name, lastName, pin, new MedicalHistory());
+            patient = new Patient(name, lastName, pin, new MedicalHistory(0));
             Stage stage = (Stage) firstNameTF.getScene().getWindow();
             stage.close();
         }
@@ -142,5 +144,9 @@ public class AddPatientController implements Initializable {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public void setDoctor(GeneralPractitioner doctor) {
+        this.doctor = doctor;
     }
 }

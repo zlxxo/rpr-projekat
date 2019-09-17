@@ -3,6 +3,8 @@ package ba.unsa.etf.rpr.projekat;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -167,8 +169,29 @@ public class DoctorsOfficeDAO {
     }
 
     public MedicalHistory getMedicalHistory(int number) {
-        MedicalHistory result = new MedicalHistory();
-        result.setNumber(number);
+        MedicalHistory result = new MedicalHistory(number);
+        try {
+            PreparedStatement p = conn.prepareStatement("select name from allergy where patient=?");
+            p.setInt(1, number);
+            ResultSet rs = p.executeQuery();
+            while(rs.next()) {
+                result.addAllergy(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PreparedStatement p = conn.prepareStatement("select name from disease where patient=?");
+            p.setInt(1, number);
+            ResultSet rs = p.executeQuery();
+            while(rs.next()) {
+                result.addDisease(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return result;
     }
 
@@ -369,6 +392,41 @@ public class DoctorsOfficeDAO {
                 p.execute();
             }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<CheckUp> getCheckUps(String username) {
+        ArrayList<CheckUp> result = new ArrayList<>();
+        Doctor doctor = getDoctor(username);
+        ArrayList<Patient> patients = getPatients();
+        try {
+            PreparedStatement p = conn.prepareStatement("select patient from checkup where doctor=?");
+            p.setString(1, username);
+            ResultSet r = p.executeQuery();
+            while(r.next()) {
+                int i = r.getInt(1);
+                for(Patient p1 : patients) {
+                    if(p1.getMedicalHistory().getNumber() == i) {
+                        result.add(new CheckUp(doctor, p1, LocalDate.now(), LocalTime.now(), ""));
+                        break;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public void addCheckUp(String doctor, int patient) {
+        try {
+            PreparedStatement p = conn.prepareStatement("insert into checkup(patient, doctor) values(?,?)");
+            p.setInt(1, patient);
+            p.setString(2, doctor);
+            p.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

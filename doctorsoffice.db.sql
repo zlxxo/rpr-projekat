@@ -36,4 +36,22 @@ CREATE TABLE `patient` (
     FOREIGN KEY(`general_practitioner`) REFERENCES `doctor`(`username`)
 );
 INSERT INTO `patient` VALUES('1605998167723', 'Sara', 'Hasić', 1, "silic1");
+CREATE TABLE `allergy` (
+	`patient`	INTEGER,
+	`name`	TEXT
+);
+INSERT INTO `allergy` VALUES(1, "kikiriki");
+INSERT INTO `allergy` VALUES(1, "sunce");
+CREATE TABLE `disease` (
+	`patient`	INTEGER,
+	`name`	TEXT
+);
+INSERT INTO `disease` VALUES(1, "dijabetes tip 1");
+CREATE TABLE `checkup` (
+	`patient`	INTEGER,
+	`doctor`	TEXT,
+	`date`	TEXT,
+	`time`	TEXT,
+	`diagnosis`	TEXT
+);
 COMMIT;
