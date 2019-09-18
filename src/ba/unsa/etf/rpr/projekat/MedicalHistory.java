@@ -57,4 +57,12 @@ public class MedicalHistory {
     public void setAllergies(ArrayList<String> allergies) {
         this.allergies = allergies;
     }
+
+    public ArrayList<String> getDiseases() {
+        return diseases;
+    }
+
+    public void setDiseases(ArrayList<String> diseases) {
+        this.diseases = diseases;
+    }
 }

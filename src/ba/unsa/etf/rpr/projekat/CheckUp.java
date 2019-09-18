@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class CheckUp {
+public class CheckUp implements Comparable<CheckUp>{
     private Doctor doctor;
     private Patient patient;
     private LocalDate date;
@@ -57,5 +57,14 @@ public class CheckUp {
 
     public void setDiagnosis(String diagnosis) {
         this.diagnosis = diagnosis;
+    }
+
+    @Override
+    public int compareTo(CheckUp checkUp) {
+        int i = date.compareTo(checkUp.date);
+        if(i == 0) {
+            return time.compareTo(checkUp.time);
+        }
+        return i;
     }
 }

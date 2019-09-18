@@ -74,6 +74,8 @@
                     <columns>
                         <TableColumn fx:id="colFirstName" prefWidth="120.0" text="Ime" />
                         <TableColumn fx:id="colLastName" prefWidth="120.0" text="Prezime" />
+                  <TableColumn fx:id="colDate" prefWidth="120.0" text="Datum" />
+                  <TableColumn fx:id="colTime" prefWidth="120.0" text="Vrijeme" />
                     </columns>
                 </TableView>
                 <TableView fx:id="patientsTV" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
@@ -118,7 +120,7 @@
                 <Insets bottom="20.0" right="20.0" top="20.0" />
             </padding>
             <children>
-                <Button fx:id="addDoctorBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="163.0" text="Pregledaj" GridPane.rowIndex="1" />
+                <Button fx:id="checkUpBtn" mnemonicParsing="false" onAction="#checkUp" prefHeight="31.0" prefWidth="163.0" text="Pregledaj" GridPane.rowIndex="1" />
                 <Button fx:id="updatePatientBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="161.0" text="Ažuriraj pacijenta" GridPane.rowIndex="3" />
                 <Button fx:id="addPatientBtn" mnemonicParsing="false" onAction="#addPatient" prefHeight="31.0" prefWidth="160.0" text="Dodaj pacijenta" GridPane.rowIndex="2" />
             <Button fx:id="addCheckUpBtn" mnemonicParsing="false" onAction="#addCheckUp" prefHeight="31.0" prefWidth="180.0" text="Dodaj pregled" />

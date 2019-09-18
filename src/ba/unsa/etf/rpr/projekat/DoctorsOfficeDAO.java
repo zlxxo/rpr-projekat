@@ -6,6 +6,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class DoctorsOfficeDAO {
@@ -397,19 +398,29 @@ public class DoctorsOfficeDAO {
         }
     }
 
+    private LocalDate getDate(String date) {
+        return LocalDate.of(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)));
+    }
+
+    private LocalTime getTime(String time) {
+        return LocalTime.of(Integer.parseInt(time.substring(0, 2)), Integer.parseInt(time.substring(3, 5)), 0);
+    }
+
     public ArrayList<CheckUp> getCheckUps(String username) {
         ArrayList<CheckUp> result = new ArrayList<>();
         Doctor doctor = getDoctor(username);
         ArrayList<Patient> patients = getPatients();
         try {
-            PreparedStatement p = conn.prepareStatement("select patient from checkup where doctor=?");
+            PreparedStatement p = conn.prepareStatement("select patient, diagnosis, date, time from checkup where doctor=?");
             p.setString(1, username);
             ResultSet r = p.executeQuery();
             while(r.next()) {
                 int i = r.getInt(1);
                 for(Patient p1 : patients) {
                     if(p1.getMedicalHistory().getNumber() == i) {
-                        result.add(new CheckUp(doctor, p1, LocalDate.now(), LocalTime.now(), ""));
+                        LocalDate date = getDate(r.getString(3));
+                        LocalTime time = getTime(r.getString(4));
+                        result.add(new CheckUp(doctor, p1, date, time, r.getString(2)));
                         break;
                     }
                 }
@@ -418,14 +429,33 @@ public class DoctorsOfficeDAO {
             e.printStackTrace();
         }
 
+        Collections.sort(result);
+
         return result;
     }
 
-    public void addCheckUp(String doctor, int patient) {
+    public void addCheckUp(String doctor, int patient, LocalDate date, LocalTime time) {
         try {
-            PreparedStatement p = conn.prepareStatement("insert into checkup(patient, doctor) values(?,?)");
+            PreparedStatement p = conn.prepareStatement("insert into checkup(patient, doctor, diagnosis, date, time) values(?,?,?,?,?)");
             p.setInt(1, patient);
             p.setString(2, doctor);
+            p.setString(3, "");
+            p.setString(4, date.toString());
+            p.setString(5, time.toString());
+            p.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCheckUp(String doctor, int patient, String diagnosis, LocalDate date, LocalTime time) {
+        try {
+            PreparedStatement p = conn.prepareStatement("update checkup set diagnosis=? where doctor=? and patient=? and date=? and time=?");
+            p.setString(1, diagnosis);
+            p.setString(2, doctor);
+            p.setInt(3, patient);
+            p.setString(4, date.toString());
+            p.setString(5, time.toString());
             p.execute();
         } catch (SQLException e) {
             e.printStackTrace();

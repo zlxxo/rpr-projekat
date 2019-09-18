@@ -66,39 +66,24 @@
                 <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="-Infinity" minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TableView fx:id="doctorsTV" prefHeight="137.0" prefWidth="479.0" GridPane.rowIndex="1">
+                <TableView fx:id="checkUpsTV" prefHeight="137.0" prefWidth="479.0" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn fx:id="colDFirstName" prefWidth="120.0" text="Ime" />
-                        <TableColumn fx:id="colDLastName" prefWidth="120.0" text="Prezime" />
-                        <TableColumn fx:id="colSpetialization" prefWidth="120.0" text="Odjel" />
-                        <TableColumn fx:id="colLicenceNumber" prefWidth="120.0" text="Broj licence" />
+                        <TableColumn fx:id="colFirstName" prefWidth="120.0" text="Ime" />
+                        <TableColumn fx:id="colLastName" prefWidth="120.0" text="Prezime" />
+                  <TableColumn fx:id="colDate" prefWidth="120.0" text="Datum" />
+                  <TableColumn fx:id="colTime" prefWidth="120.0" text="Vrijeme" />
                     </columns>
                 </TableView>
-                <TableView fx:id="patientsTV" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
-                    <columns>
-                        <TableColumn fx:id="colPFirstName" prefWidth="120.0" text="Ime" />
-                        <TableColumn fx:id="colPLastName" prefWidth="120.0" text="Prezime" />
-                        <TableColumn fx:id="colPIN" prefWidth="120.0" text="JMBG" />
-                        <TableColumn fx:id="colMHNumber" prefWidth="120.0" text="Karton" />
-                    </columns>
-                </TableView>
-                <Label prefHeight="21.0" prefWidth="68.0" text="Doktori">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
-                <Label prefHeight="27.0" prefWidth="85.0" text="Pacijenti" GridPane.rowIndex="3">
+                <Label prefHeight="27.0" prefWidth="98.0" text="Pregledi">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
                 </Label>
             </children>
             <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" />
+                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
             </padding>
         </GridPane>
     </center>
@@ -117,12 +102,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <padding>
-                <Insets bottom="20.0" right="20.0" top="20.0" />
+                <Insets bottom="20.0" right="20.0" top="30.0" />
             </padding>
             <children>
-                <Button fx:id="addDoctorBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="163.0" text="Dodaj doktora" />
-                <Button fx:id="updateDoctorBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="161.0" text="Ažuriraj doktora" GridPane.rowIndex="1" />
-                <Button fx:id="addPatientBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="160.0" text="Dodaj pacijenta" GridPane.rowIndex="2" />
+                <Button fx:id="checkUpBtn" mnemonicParsing="false" onAction="#checkUp" prefHeight="31.0" prefWidth="163.0" text="Pregledaj" GridPane.rowIndex="1" />
+                <Button fx:id="addCheckUpBtn" mnemonicParsing="false" onAction="#addCheckUp" prefHeight="31.0" prefWidth="180.0" text="Dodaj pregled" />
             </children>
         </GridPane>
     </right>

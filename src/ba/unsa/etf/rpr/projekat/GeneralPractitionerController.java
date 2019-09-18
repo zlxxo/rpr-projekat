@@ -31,6 +31,8 @@ public class GeneralPractitionerController implements Initializable {
     public TableView<CheckUp> checkUpsTV;
     public TableColumn<CheckUp, String> colFirstName;
     public TableColumn<CheckUp, String> colLastName;
+    public TableColumn<CheckUp, String> colDate;
+    public TableColumn<CheckUp, String> colTime;
 
     private DoctorsOfficeDAO dao;
     private ObservableList<Patient> patients;
@@ -57,6 +59,8 @@ public class GeneralPractitionerController implements Initializable {
 
         colFirstName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPatient().getFirstName()));
         colLastName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPatient().getLastName()));
+        colDate.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDate().toString()));
+        colTime.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTime().toString()));
     }
 
     public void addPatient(ActionEvent actionEvent) {
@@ -101,6 +105,34 @@ public class GeneralPractitionerController implements Initializable {
 
             stage.setOnHiding( event -> {
                 CheckUp checkUp = controller.getCheckUp();
+                if (checkUp != null) {
+                    checkUps.setAll(dao.getCheckUps(doctor.getUsername()));
+                }
+            } );
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void checkUp(ActionEvent actionEvent) {
+        CheckUp checkUp = checkUpsTV.getSelectionModel().getSelectedItem();
+        if (checkUp == null) return;
+
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/checkUp.fxml"));
+            CheckUpController controller = new CheckUpController(checkUp);
+            loader.setController(controller);
+            root = loader.load();
+            stage.setTitle("Pregled");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+
+            stage.setOnHiding( event -> {
+                CheckUp checkUp1 = controller.getCheckUp();
                 if (checkUp != null) {
                     checkUps.setAll(dao.getCheckUps(doctor.getUsername()));
                 }
