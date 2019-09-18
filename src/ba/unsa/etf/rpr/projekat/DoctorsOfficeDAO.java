@@ -406,6 +406,17 @@ public class DoctorsOfficeDAO {
         return LocalTime.of(Integer.parseInt(time.substring(0, 2)), Integer.parseInt(time.substring(3, 5)), 0);
     }
 
+    private LocalTime get15MinutesBack(String time) {
+        int h = Integer.parseInt(time.substring(0, 2)), m = Integer.parseInt(time.substring(3, 5));
+        if(m < 15) {
+            m += 60;
+            if(h == 0) h += 24;
+            h--;
+        }
+        m -= 15;
+        return LocalTime.of(h, m, 0);
+    }
+
     public ArrayList<CheckUp> getCheckUps(String username) {
         ArrayList<CheckUp> result = new ArrayList<>();
         Doctor doctor = getDoctor(username);
@@ -421,6 +432,35 @@ public class DoctorsOfficeDAO {
                         LocalDate date = getDate(r.getString(3));
                         LocalTime time = getTime(r.getString(4));
                         result.add(new CheckUp(doctor, p1, date, time, r.getString(2)));
+                        break;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Collections.sort(result);
+
+        return result;
+    }
+
+    public ArrayList<CheckUp> getCheckUps() {
+        ArrayList<CheckUp> result = new ArrayList<>();
+        ArrayList<Patient> patients = getPatients();
+        try {
+            PreparedStatement p = conn.prepareStatement("select patient, diagnosis, date, time, doctor from checkup");
+            ResultSet r = p.executeQuery();
+            while(r.next()) {
+                Doctor doctor = getDoctor(r.getString(5));
+                int i = r.getInt(1);
+                for(Patient p1 : patients) {
+                    if(p1.getMedicalHistory().getNumber() == i) {
+                        LocalDate date = getDate(r.getString(3));
+                        LocalTime time = getTime(r.getString(4)), t = get15MinutesBack(LocalTime.now().toString());
+                        if(date.compareTo(LocalDate.now()) > 0 || (date.compareTo(LocalDate.now()) == 0 && time.compareTo(t) > 0)) {
+                            result.add(new CheckUp(doctor, p1, date, time, r.getString(2)));
+                        }
                         break;
                     }
                 }

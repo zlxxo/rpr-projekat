@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.BossController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.BossController">
     <top>
         <VBox prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -68,9 +68,12 @@
           <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="doctorsTV" prefHeight="137.0" prefWidth="479.0" GridPane.rowIndex="1">
+            <TableView fx:id="doctorsTV" prefHeight="211.0" prefWidth="480.0" GridPane.rowIndex="1">
               <columns>
                 <TableColumn fx:id="colDFirstName" prefWidth="120.0" text="Ime" />
                 <TableColumn fx:id="colDLastName" prefWidth="120.0" text="Prezime" />
@@ -96,6 +99,19 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <TableView fx:id="checkUpsTV" prefHeight="137.0" prefWidth="479.0" GridPane.rowIndex="7">
+               <columns>
+                  <TableColumn fx:id="colFirstName" prefWidth="120.0" text="Ime" />
+                  <TableColumn fx:id="colLastName" prefWidth="120.0" text="Prezime" />
+                  <TableColumn fx:id="colDate" prefWidth="120.0" text="Datum" />
+                  <TableColumn fx:id="colTime" prefWidth="120.0" text="Vrijeme" />
+               </columns>
+            </TableView>
+            <Label prefHeight="27.0" prefWidth="85.0" text="Pregledi" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" />
@@ -113,6 +129,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -123,6 +141,7 @@
             <Button fx:id="addDoctorBtn" mnemonicParsing="false" onAction="#addDoctor" prefHeight="31.0" prefWidth="163.0" text="Dodaj doktora" />
             <Button fx:id="updateDoctorBtn" mnemonicParsing="false" onAction="#updateDoctor" prefHeight="31.0" prefWidth="161.0" text="Ažuriraj doktora" GridPane.rowIndex="1" />
             <Button fx:id="addPatientBtn" mnemonicParsing="false" onAction="#addPatient" prefHeight="31.0" prefWidth="160.0" text="Dodaj pacijenta" GridPane.rowIndex="2" />
+            <Button fx:id="checkUpBtn" mnemonicParsing="false" onAction="#checkUp" prefHeight="31.0" prefWidth="187.0" text="Pregledaj" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </right>

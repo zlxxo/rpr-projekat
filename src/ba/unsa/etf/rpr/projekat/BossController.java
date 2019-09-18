@@ -35,15 +35,23 @@ public class BossController implements Initializable {
     private DoctorsOfficeDAO dao;
     private ObservableList<Patient> patients;
     private ObservableList<Doctor> doctors;
+    public TableView<CheckUp> checkUpsTV;
+    public TableColumn<CheckUp, String> colFirstName;
+    public TableColumn<CheckUp, String> colLastName;
+    public TableColumn<CheckUp, String> colDate;
+    public TableColumn<CheckUp, String> colTime;
+    private ObservableList<CheckUp> checkUps;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dao = DoctorsOfficeDAO.getInstance();
         doctors = FXCollections.observableArrayList(dao.getDoctors());
         patients = FXCollections.observableArrayList(dao.getPatients());
-
+        checkUps = FXCollections.observableArrayList(dao.getCheckUps());
+        if(checkUps.size() == 0) System.out.println("Greška");
         doctorsTV.setItems(doctors);
         patientsTV.setItems(patients);
+        checkUpsTV.setItems(checkUps);
 
         colDFirstName.setCellValueFactory(new PropertyValueFactory("firstName"));
         colDLastName.setCellValueFactory(new PropertyValueFactory("lastName"));
@@ -54,6 +62,11 @@ public class BossController implements Initializable {
         colPLastName.setCellValueFactory(new PropertyValueFactory("lastName"));
         colMHNumber.setCellValueFactory(data -> new SimpleStringProperty(Integer.toString(data.getValue().getMedicalHistory().getNumber())));
         colPIN.setCellValueFactory(new PropertyValueFactory("personalIdentificationNumber"));
+
+        colFirstName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPatient().getFirstName()));
+        colLastName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPatient().getLastName()));
+        colDate.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDate().toString()));
+        colTime.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTime().toString()));
     }
 
     public void addDoctor(ActionEvent actionEvent) {
@@ -127,6 +140,34 @@ public class BossController implements Initializable {
                 Patient patient = controller.getPatient();
                 if (patient != null) {
                     patients.setAll(dao.getPatients());
+                }
+            } );
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void checkUp(ActionEvent actionEvent) {
+        CheckUp checkUp = checkUpsTV.getSelectionModel().getSelectedItem();
+        if (checkUp == null) return;
+
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/checkUp.fxml"));
+            CheckUpController controller = new CheckUpController(checkUp);
+            loader.setController(controller);
+            root = loader.load();
+            stage.setTitle("Pregled");
+            stage.setScene(new Scene(root, USE_PREF_SIZE, USE_PREF_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+
+            stage.setOnHiding( event -> {
+                CheckUp checkUp1 = controller.getCheckUp();
+                if (checkUp != null) {
+                    checkUps.setAll(dao.getCheckUps());
                 }
             } );
         } catch (Exception e) {
